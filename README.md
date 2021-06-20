@@ -7,6 +7,8 @@
 
 Последняя версия - настроена сборка проекта в war архив и автоматический деплой на внешний Tomcat (по файловому пути);
 Путь устанавливается в pom.xml
+<br/>
+```html
 <plugin>
 	<groupId>org.apache.maven.plugins</groupId>
 	<artifactId>maven-war-plugin</artifactId>
@@ -15,7 +17,7 @@
 		<outputDirectory>f:\Java\apache-tomcat-9.0.45\webapps\</outputDirectory>
 	</configuration>
 </plugin>
-
+```
 
 Версия для стандартного Spring Boot Jar:
 https://github.com/introby/library/tree/db2af82c0dbd2073dc93b56010cf439ff280553e
