@@ -1,7 +1,10 @@
 Тестовое приложение "Библиотека" (REST API)
+---------------------------------------------
 
 Сущности Customer, Address, Book. CRUD-операции, пагинация, сортировка.
+
 БД H2 развертывается автоматически через Flyway. Консоль базы http://localhost:8080/library-app/h2-console
+
 Доступен Swagger-UI (http://localhost:8080/library-app/swagger-ui/index.html)
 
 
