@@ -10,7 +10,8 @@
 	</parent>
 	<groupId>by.intro</groupId>
 	<artifactId>library</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
+	<packaging>war</packaging>
 	<name>library</name>
 	<description>Library Rest API</description>
 	<properties>
@@ -56,6 +57,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -70,6 +77,15 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<outputDirectory>f:\Java\apache-tomcat-9.0.45\webapps\</outputDirectory>
 				</configuration>
 			</plugin>
 		</plugins>
