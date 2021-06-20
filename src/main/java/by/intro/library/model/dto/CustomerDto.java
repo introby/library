@@ -13,6 +13,7 @@ public class CustomerDto {
     private Long id;
     private String customerName;
     private List<BookDto> borrowBooksDto = new ArrayList<>();
+    private AddressDto addressDto;
 
     public static CustomerDto from(Customer customer) {
         CustomerDto customerDto = new CustomerDto();
@@ -20,6 +21,7 @@ public class CustomerDto {
         customerDto.setCustomerName(customer.getCustomerName());
         customerDto.setBorrowBooksDto(customer.getBorrowBooks()
                 .stream().map(BookDto::from).collect(Collectors.toList()));
+        customerDto.setAddressDto(AddressDto.from(customer.getAddress()));
         return customerDto;
     }
 }

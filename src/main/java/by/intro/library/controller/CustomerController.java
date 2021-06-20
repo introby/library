@@ -73,4 +73,17 @@ public class CustomerController {
         Customer customer = customerService.removeBookFromCustomer(customerId, bookId);
         return new ResponseEntity<>(CustomerDto.from(customer), HttpStatus.OK);
     }
+
+    @PostMapping(value = "{customerId}/address/{addressId}/add")
+    public ResponseEntity<CustomerDto> addAddressToCustomer(@PathVariable final Long customerId,
+                                                         @PathVariable final Long addressId) {
+        Customer customer = customerService.addAddressToCustomer(customerId, addressId);
+        return new ResponseEntity<>(CustomerDto.from(customer), HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "{customerId}/address/remove")
+    public ResponseEntity<CustomerDto> removeAddressFromCustomer(@PathVariable final Long customerId) {
+        Customer customer = customerService.removeAddressFromCustomer(customerId);
+        return new ResponseEntity<>(CustomerDto.from(customer), HttpStatus.OK);
+    }
 }

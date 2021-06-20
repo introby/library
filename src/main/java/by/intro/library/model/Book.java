@@ -21,13 +21,6 @@ public class Book {
     @ManyToOne
     private Customer customer;
 
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(name = "book_genre",
-//            joinColumns = @JoinColumn(name = "book_id"),
-//            inverseJoinColumns = @JoinColumn(name = "genre_id")
-//    )
-//    private Set<Genre> genres;
-
     public static Book from(BookDto bookDto) {
         Book book = new Book();
         book.setAuthor(bookDto.getAuthor());

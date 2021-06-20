@@ -18,13 +18,13 @@ public class Customer {
 
     private String customerName;
 
-//    @OneToOne(cascade = CascadeType.REFRESH)
-//    @JoinColumn(name = "card_id")
-//    private MembershipCard membershipCard;
-
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
     private List<Book> borrowBooks = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address;
 
     public void addBook(Book book) {
         borrowBooks.add(book);
@@ -38,5 +38,13 @@ public class Customer {
         Customer customer = new Customer();
         customer.setCustomerName(customerDto.getCustomerName());
         return customer;
+    }
+
+    public void addAddress(Address addr) {
+        address = addr;
+    }
+
+    public void removeAddress() {
+        address = null;
     }
 }

@@ -1,5 +1,6 @@
 package by.intro.library.service;
 
+import by.intro.library.model.Address;
 import by.intro.library.model.Book;
 import by.intro.library.model.Customer;
 import by.intro.library.model.CustomerPage;
@@ -21,11 +22,13 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
     private final BookService bookService;
+    private final AddressService addressService;
 
     @Autowired
-    public CustomerService(CustomerRepository customerRepository, BookService bookService) {
+    public CustomerService(CustomerRepository customerRepository, BookService bookService, AddressService addressService) {
         this.customerRepository = customerRepository;
         this.bookService = bookService;
+        this.addressService = addressService;
     }
 
     public Customer addCustomer(Customer customer) {
@@ -76,6 +79,21 @@ public class CustomerService {
         Book book = bookService.getBook(bookId);
         customer.removeBook(book);
         book.setCustomer(null);
+        return customer;
+    }
+
+    @Transactional
+    public Customer addAddressToCustomer(Long customerId, Long addressId) {
+        Customer customer = getCustomer(customerId);
+        Address address = addressService.getAddress(addressId);
+        customer.addAddress(address);
+        return customer;
+    }
+
+    @Transactional
+    public Customer removeAddressFromCustomer(Long customerId) {
+        Customer customer = getCustomer(customerId);
+        customer.removeAddress();
         return customer;
     }
 }
