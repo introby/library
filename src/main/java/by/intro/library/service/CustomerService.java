@@ -2,14 +2,18 @@ package by.intro.library.service;
 
 import by.intro.library.model.Book;
 import by.intro.library.model.Customer;
+import by.intro.library.model.CustomerPage;
 import by.intro.library.model.exception.BookIsAlreadyAssignedException;
 import by.intro.library.model.exception.CustomerNotFoundException;
 import by.intro.library.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -28,8 +32,12 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
-    public List<Customer> getCustomers() {
-        return customerRepository.findAll();
+    public Page<Customer> getCustomers(CustomerPage customerPage) {
+        Sort sort = Sort.by(customerPage.getSortDirection(), customerPage.getSortBy());
+        Pageable pageable = PageRequest.of(customerPage.getPageNumber(),
+                customerPage.getPageSize(),
+                sort);
+        return customerRepository.findAll(pageable);
     }
 
     public Customer getCustomer(Long id) {

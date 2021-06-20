@@ -5,9 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "customers")
@@ -16,10 +14,8 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customer_id")
     private Long id;
 
-    @Column(name = "customer_name")
     private String customerName;
 
 //    @OneToOne(cascade = CascadeType.REFRESH)

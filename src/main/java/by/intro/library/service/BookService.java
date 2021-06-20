@@ -1,13 +1,17 @@
 package by.intro.library.service;
 
 import by.intro.library.model.Book;
+import by.intro.library.model.BookPage;
 import by.intro.library.model.exception.BookNotFoundException;
 import by.intro.library.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Service
 public class BookService {
@@ -23,8 +27,12 @@ public class BookService {
         return bookRepository.save(book);
     }
 
-    public List<Book> getBooks() {
-        return bookRepository.findAll();
+    public Page<Book> getBooks(BookPage bookPage) {
+        Sort sort = Sort.by(bookPage.getSortDirection(), bookPage.getSortBy());
+        Pageable pageable = PageRequest.of(bookPage.getPageNumber(),
+                bookPage.getPageSize(),
+                sort);
+        return bookRepository.findAll(pageable);
     }
 
     public Book getBook(Long id) {

@@ -1,9 +1,13 @@
 package by.intro.library.controller;
 
 import by.intro.library.model.Customer;
+import by.intro.library.model.CustomerPage;
 import by.intro.library.model.dto.CustomerDto;
 import by.intro.library.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,10 +33,12 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CustomerDto>> getCustomers() {
-        List<Customer> customers = customerService.getCustomers();
+    public ResponseEntity<Page<CustomerDto>> getCustomers(CustomerPage customerPage) {
+        Page<Customer> customers = customerService.getCustomers(customerPage);
+        Pageable pageable = customers.getPageable();
         List<CustomerDto> customersDto = customers.stream().map(CustomerDto::from).collect(Collectors.toList());
-        return new ResponseEntity<>(customersDto, HttpStatus.OK);
+        PageImpl<CustomerDto> customerDtoPage = new PageImpl<>(customersDto, pageable, customers.getTotalElements());
+        return new ResponseEntity<>(customerDtoPage, HttpStatus.OK);
     }
 
     @GetMapping(value = "{id}")
